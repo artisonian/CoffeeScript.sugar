@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<syntax name="source.coffee">
+    <zones>
+        <zone name="meta.inline.function.coffee">
+            <expression>(\([^()]*?\))\s*([=-]>)</expression>
+            <capture number="1" name="variable.parameter.function.coffee"/>
+            <capture number="2" name="storage.type.function.coffee"/>
+        </zone>
+        <zone name="meta.class.instance.constructor">
+            <expression>(new)\s+(\w+(?:\.\w*)?)</expression>
+            <capture number="1" name="keyword.operator.new.coffee"/>
+            <capture number="2" name="entity.name.type.instance.coffee"/>
+        </zone>
+        <zone name="string.quoted.heredoc.coffee">
+            <starts-with>
+                <expression>'''</expression>
+                <capture number="0" name="punctuation.definition.string.begin.coffee"/>
+            </starts-with>
+            <ends-with>
+                <expression>'''</expression>
+                <capture number="0" name="punctuation.definition.string.end.coffee"/>
+            </ends-with>
+        </zone>
+        <zone name="string.quoted.double.heredoc.coffee">
+            <starts-with>
+                <expression>"""</expression>
+                <capture number="0" name="punctuation.definition.string.begin.coffee"/>
+            </starts-with>
+            <ends-with>
+                <expression>"""</expression>
+                <capture number="0" name="punctuation.definition.string.end.coffee"/>
+            </ends-with>
+            <subzones>
+                <zone name="constant.character.escape.coffee">
+                    <expression>\\.</expression>
+                </zone>
+                <include collection="interpolated_coffee"/>
+            </subzones>
+        </zone>
+        <zone name="string.quoted.script.coffee">
+            <starts-with>
+                <expression>`</expression>
+                <capture number="0" name="punctuation.definition.string.begin.coffee"/>
+            </starts-with>
+            <ends-with>
+                <expression>`</expression>
+                <capture number="0" name="punctuation.definition.string.end.coffee"/>
+            </ends-with>
+            <subzones>
+                <zone name="constant.character.escape.coffee">
+                    <expression>\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)</expression>
+                </zone>
+            </subzones>
+        </zone>
+        <zone name="comment.block.coffee">
+            <starts-with>
+                <expression>###(?!#)</expression>
+                <capture number="0" name="punctuation.definition.comment.coffee"/>
+            </starts-with>
+            <ends-with>
+                <expression>###[ \t]*\n</expression>
+                <capture number="0" name="punctuation.definition.comment.coffee"/>
+            </ends-with>
+        </zone>
+        <zone name="comment.line.coffee">
+            <expression>(#).*$\n?</expression>
+            <capture number="1" name="punctuation.definition.comment.coffee"/>
+        </zone>
+        <zone name="string.regexp.coffee">
+            <starts-with>
+                <expression>/{3}</expression>
+            </starts-with>
+            <ends-with>
+                <expression>/{3}[imgy]{0,4}</expression>
+            </ends-with>
+            <subzones>
+                <include collection="interpolated_coffee"/>
+                <include collection="embedded_comment"/>
+            </subzones>
+        </zone>
+        <zone name="string.regexp.coffee">
+            <expression>/(?![\s/*+{}?]).*?[^\\]/[igmy]{0,4}(?![a-zA-Z0-9])</expression>
+        </zone>
+        <zone name="keyword.control.coffee">
+            <expression>\b(?&lt;!\.)(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|(?&lt;=for)\s+own)(?!\s*:)\b</expression>
+        </zone>
+        <zone name="keyword.operator.coffee">
+            <expression>and=|or=|!|%|&amp;|\^|\*|\/|\-\-|\-|\+\+|\+|~|===|==|=|!=|!==|&lt;=|>=|&lt;&lt;=|>>=|>>>=|&lt;>|&lt;|>|!|&amp;&amp;|\?|\||\|\||\:|\*=|(?&lt;!\()/=|%=|\+=|\-=|&amp;=|\^=|\b(instanceof|new|delete|typeof|and|or|is|isnt|not)\b</expression>
+        </zone>
+        <zone name="variable.assignment.coffee">
+            <expression>([a-zA-Z\$_](\w|\$|\.)*\s*(?!\::)((:)|(=))(?!(\s*\(.*\))?\s*((=|-)>)))</expression>
+            <capture number="1" name="variable.assignment.coffee"/>
+            <capture number="4" name="punctuation.separator.key-value"/>
+            <capture number="5" name="keyword.operator.coffee"/>
+        </zone>
+        <zone name="meta.variable.assignment.destructured.coffee">
+            <starts-with>
+                <expression>(?&lt;=\s|^)([\[\{])(?=.*?[\]\}]\s+[:=])</expression>
+                <capture number="0" name="keyword.operator.coffee"/>
+            </starts-with>
+            <ends-with>
+                <expression>([\]\}]\s*[:=])</expression>
+                <capture number="0" name="keyword.operator.coffee"/>
+            </ends-with>
+            <subzones>
+                <include collection="variable_name"/>
+                <include collection="instance_variable"/>
+                <include collection="single_quoted_string"/>
+                <include collection="double_quoted_string"/>
+                <include collection="numeric"/>
+            </subzones>
+        </zone>
+        <zone name="meta.function.coffee">
+            <expression>(\s*)(?=[a-zA-Z\$_])([a-zA-Z\$_](\w|\$|:|\.)*\s*(?=[:=](\s*\(.*\))?\s*((=|-)>)))</expression>
+            <capture number="2" name="entity.name.function.coffee"/>
+        </zone>
+        <zone name="storage.type.function.coffee">
+            <expression>(=|-)></expression>
+        </zone>
+        <zone name="constant.language.boolean.true.coffee">
+            <expression>\b(?&lt;!\.)(true|on|yes)(?!\s*[:=])\b</expression>
+        </zone>
+        <zone name="constant.language.boolean.false.coffee">
+            <expression>\b(?&lt;!\.)(false|off|no)(?!\s*[:=])\b</expression>
+        </zone>
+        <zone name="constant.language.null.coffee">
+            <expression>\b(?&lt;!\.)null(?!\s*[:=])\b</expression>
+        </zone>
+        <zone name="variable.language.coffee">
+            <expression>\b(?&lt;!\.)(super|this|extends)(?!\s*[:=])\b</expression>
+        </zone>
+        <zone name="meta.class.coffee">
+            <expression>(class\b)\s+([a-zA-Z\$_]\w+)?(\s+(extends)\s+[a-zA-Z\$_]\w*)?</expression>
+            <capture number="1" name="storage.type.class.coffee"/>
+            <capture number="2" name="entity.name.type.class.coffee"/>
+            <capture number="3" name="entity.other.inherited-class.coffee"/>
+            <capture number="4" name="keyword.control.inheritance.coffee"/>
+        </zone>
+        <zone name="keyword.other.coffee">
+            <expression>\b(debugger|\\)\b</expression>
+        </zone>
+        <zone name="constant.language.coffee">
+            <expression>\b(Infinity|NaN|undefined)\b</expression>
+        </zone>
+        <zone name="punctuation.terminator.statement.coffee">
+            <expression>\;</expression>
+        </zone>
+        <zone name="meta.delimiter.object.comma.coffee">
+            <expression>,[ |\t]*</expression>
+        </zone>
+        <zone name="meta.delimiter.method.period.coffee">
+            <expression>\.</expression>
+        </zone>
+        <zone name="meta.brace.curly.coffee">
+            <expression>\{|\}</expression>
+        </zone>
+        <zone name="meta.brace.round.coffee">
+            <expression>\(|\)</expression>
+        </zone>
+        <zone name="meta.brace.square.coffee">
+            <expression>\[|\]\s*</expression>
+        </zone>
+        <include collection="instance_variable"/>
+        <include collection="single_quoted_string"/>
+        <include collection="double_quoted_string"/>
+        <include collection="numeric"/>
+    </zones>
+    <library>
+        <collection name="double_quoted_string">
+            <zone name="string.quoted.double.coffee">
+                <starts-with>
+                    <expression>"</expression>
+                    <capture number="0" name="punctuation.definition.string.begin.coffee"/>
+                </starts-with>
+                <ends-with>
+                    <expression>"</expression>
+                    <capture number="0" name="punctuation.definition.string.end.coffee"/>
+                </ends-with>
+                <subzones>
+                    <zone name="constant.character.escape.coffee">
+                        <expression>\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)</expression>
+                    </zone>
+                    <include collection="interpolated_coffee"/>
+                </subzones>
+            </zone>
+        </collection>
+        <collection name="embedded_comment">
+            <zone name="comment.line.coffee">
+                <expression>(#).*$\n?</expression>
+                <capture number="1" name="punctuation.definition.comment.coffee"/>
+            </zone>
+        </collection>
+        <collection name="instance_variable">
+            <zone name="variable.other.readwrite.instance.coffee">
+                <expression>(@)([a-zA-Z_\$]\w*)?</expression>
+            </zone>
+        </collection>
+        <collection name="interpolated_coffee">
+            <zone name="source.coffee.embedded.source">
+                <starts-with>
+                    <expression>\#\{</expression>
+                    <capture number="0" name="punctuation.section.embedded.coffee"/>
+                </starts-with>
+                <ends-with>
+                    <expression>\}</expression>
+                    <capture number="0" name="punctuation.section.embedded.coffee"/>
+                </ends-with>
+                <subzones>
+                    <include syntax="$self"/>
+                </subzones>
+            </zone>
+        </collection>
+        <collection name="numeric">
+            <zone name="constant.numeric.coffee">
+                <expression>(?&lt;!\$)\b((0(x|X)[0-9a-fA-F]+)|([0-9]+(\.[0-9]+)?(e[+\-]?[0-9]+)?))\b</expression>
+            </zone>
+        </collection>
+        <collection name="single_quoted_string">
+            <zone name="string.quoted.single.coffee">
+                <starts-with>
+                    <expression>'</expression>
+                    <capture number="0" name="punctuation.definition.string.begin.coffee"/>
+                </starts-with>
+                <ends-with>
+                    <expression>'</expression>
+                    <capture number="0" name="punctuation.definition.string.end.coffee"/>
+                </ends-with>
+                <subzones>
+                    <zone name="constant.character.escape.coffee">
+                        <expression>\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)</expression>
+                    </zone>
+                </subzones>
+            </zone>
+        </collection>
+        <collection name="variable_name">
+            <zone name="variable.assignment.coffee">
+                <expression>([a-zA-Z\$_]\w*(\.\w+)*)</expression>
+                <capture number="1" name="variable.assignment.coffee"/>
+            </zone>
+        </collection>
+    </library>
+</syntax>

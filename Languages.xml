@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <language id="com.artisonian.coffee">
+    <root-zone>source.coffee</root-zone>
+    <name>CoffeeScript</name>
+    <detectors>
+      <extension>coffee</extension>
+      <filename casesensitive="true">Cakefile</filename>
+    </detectors>
+  </language>
+</settings>
