@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<syntax name="source.coffee">
+<syntax name="language-root.coffee">
     <zones>
         <zone name="meta.inline.function.coffee">
             <expression>(\([^()]*?\))\s*([=-]>)</expression>
@@ -55,16 +55,16 @@
         <zone name="comment.block.coffee">
             <starts-with>
                 <expression>###(?!#)</expression>
-                <capture number="0" name="punctuation.definition.comment.coffee"/>
+                <capture number="0" name="punctuation.definition.begin.coffee"/>
             </starts-with>
             <ends-with>
-                <expression>###[ \t]*\n</expression>
-                <capture number="0" name="punctuation.definition.comment.coffee"/>
+                <expression>###[ t]*n</expression>
+                <capture number="0" name="punctuation.definition.begin.coffee"/>
             </ends-with>
         </zone>
         <zone name="comment.line.coffee">
-            <expression>(#).*$\n?</expression>
-            <capture number="1" name="punctuation.definition.comment.coffee"/>
+            <expression>(#).*$n?</expression>
+            <capture number="1" name="punctuation.definition.begin.coffee"/>
         </zone>
         <zone name="string.regexp.coffee">
             <starts-with>
