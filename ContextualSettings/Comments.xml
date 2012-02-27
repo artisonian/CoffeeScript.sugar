@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+    <setting name="comment-multiline-start">
+        <language-context>source.coffee, coffee</language-context>
+        <value>###</value>
+    </setting>
+
+    <setting name="comment-multiline-end">
+        <language-context>source.coffee, coffee</language-context>
+        <value>###</value>
+    </setting>
+
+    <setting name="comment-multiline-end-inert">
+        <language-context>source.coffee, coffee</language-context>
+        <value>##</value>
+    </setting>
+
+    <setting name="comment-singleline-start">
+        <language-context>source.coffee, coffee</language-context>
+        <value>#</value>
+    </setting>
+    
+</settings> 
