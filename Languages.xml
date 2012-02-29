@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
   <language id="com.artisonian.coffee">
-    <root-zone>source.coffee</root-zone>
+    <root-zone>language-root.coffee</root-zone>
     <name>CoffeeScript</name>
     <detectors>
       <extension>coffee</extension>
