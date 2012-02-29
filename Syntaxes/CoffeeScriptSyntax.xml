@@ -58,8 +58,8 @@
                 <capture number="0" name="punctuation.definition.comment.begin.coffee"/>
             </starts-with>
             <ends-with>
-                <expression>###[ \t]*\n</expression>
-                <capture number="0" name="punctuation.definition.comment.end.coffee"/>
+                <expression>###</expression>
+                <capture number="0" name="punctuation.definition.end.coffee"/>
             </ends-with>
         </zone>
         <zone name="comment.line.coffee">

@@ -11,11 +11,6 @@
         <value>###</value>
     </setting>
 
-    <setting name="comment-multiline-end-inert">
-        <language-context>coffee</language-context>
-        <value>##</value>
-    </setting>
-
     <setting name="comment-singleline-start">
         <language-context>coffee</language-context>
         <value>#</value>
